@@ -1,24 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {lazy, Suspense} from 'react';
 import './App.css';
+import BacktoTop from './components/navigation/Navbar.js';
+import Loader from './components/skeletons/Skeleton.js';
+const Stats = lazy(()=>import('./components/stat/Stats.js')) 
+// import Globalstats from './components/globalstats/Globalstats.js';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BacktoTop/>
+      <Suspense fallback={<Loader/>}>
+        <Stats/>
+      </Suspense>
     </div>
   );
 }
