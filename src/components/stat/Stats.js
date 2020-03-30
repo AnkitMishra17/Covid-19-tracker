@@ -23,6 +23,8 @@ const StyledPaper = styled(Paper)`
 
 const Styleddiv = styled.div`
     margin: 25px 50px;
+    position: relative;
+    top: -60px;
 `;
 class Stats extends Component {
   
