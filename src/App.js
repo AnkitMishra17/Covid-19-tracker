@@ -4,6 +4,7 @@ import BacktoTop from './components/navigation/Navbar.js';
 import Loader from './components/skeletons/Skeleton.js';
 const Banner =  lazy(()=>import('./components/banner/Banner.js'));
 const Stats = lazy(()=>import('./components/stat/Stats.js')) 
+const Globalstats = lazy(()=>import('./components/globalstats/Globalstats.js')) 
 // import Globalstats from './components/globalstats/Globalstats.js';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Suspense fallback={<Loader/>}>
         <Banner/>
         <Stats/>
+        <Globalstats/>
       </Suspense>
     </div>
   );

@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   typo:{
     textAlign: 'center',
     fontFamily: 'Sen, sans-serif',
-  }
+  },
 }));
 
 function ScrollTop(props) {
@@ -75,11 +75,11 @@ export default function BackToTop(props) {
           <Typography variant="h5" className={classes.typo}>Coronavirus Tracker!</Typography>
         </Toolbar>
       </AppBar>
-      <Toolbar id="back-to-top-anchor" />
+      <Toolbar id="back-to-top-anchor"/>
       <Container>
       </Container>
       <ScrollTop {...props}>
-        <Fab color="secondary" size="small" aria-label="scroll back to top">
+        <Fab color="primary"  size="small" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollTop>

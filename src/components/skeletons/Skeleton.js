@@ -8,30 +8,21 @@ const Styleddiv = styled.div`
 `;
 
 export default function Loader() {
-  
+  let j=4;
+  const items = [];
+  while(j--){
+    items.push(
+    <Grid item xs={12} sm={6} md={3} key={j}>
+      <Skeleton variant="rect" width="90%" height={118} />
+      <Skeleton width="90%"/>
+      <Skeleton width="60%" />
+    </Grid>
+    );
+  }
   return (
     <Styleddiv>
       <Grid container spacing={6} id="myList">
-        <Grid item xs={12} sm={6} md={3}>
-          <Skeleton variant="rect" width="90%" height={118} />
-          <Skeleton width="90%"/>
-          <Skeleton width="60%" />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Skeleton variant="rect" width="90%" height={118} />
-          <Skeleton width="90%"/>
-          <Skeleton width="60%" />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Skeleton variant="rect" width="90%" height={118} />
-          <Skeleton width="90%"/>
-          <Skeleton width="60%" />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <Skeleton variant="rect" width="90%" height={118} />
-          <Skeleton width="90%"/>
-          <Skeleton width="60%" />
-        </Grid>
+        {items}
       </Grid>
     </Styleddiv>
   );
