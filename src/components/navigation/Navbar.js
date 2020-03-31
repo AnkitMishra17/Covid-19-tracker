@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
@@ -24,6 +25,7 @@ const useStyles = makeStyles(theme => ({
   typo:{
     textAlign: 'center',
     fontFamily: 'Sen, sans-serif',
+    marginLeft: '8px'
   },
 }));
 
@@ -72,6 +74,7 @@ export default function BackToTop(props) {
       <CssBaseline />
       <AppBar>
         <Toolbar className={classes.changeheight}>
+          <Avatar src="./logo1.png" />
           <Typography variant="h5" className={classes.typo}>Coronavirus Tracker!</Typography>
         </Toolbar>
       </AppBar>

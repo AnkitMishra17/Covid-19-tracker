@@ -1,0 +1,12 @@
+.para{
+    font-size: 15px;
+    font-weight: bold;
+  font-family: "Hind", sans-serif;
+}
+
+
+@media (max-width: 768px) {
+    .para{
+        font-size: 9px;
+    }
+  }

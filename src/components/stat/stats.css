@@ -1,0 +1,79 @@
+p{
+    font-weight: bold;
+}
+.imgicon{
+    display: none;
+}
+@media (min-width: 768px) {
+    .paper{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        clip-path: circle(45.4% at 100% 100%);
+        border-radius: 4px;
+        height: 100%;
+        width: 100%;
+        opacity: 0.45;
+    }
+    .confirmed{
+        background-image: linear-gradient(45deg, #4D6D9A 0,#dfe4ea 100%);
+    }
+    .deceased{
+        background-image: linear-gradient(45deg, #E85A4F 0,#dfe4ea 100%);
+    }
+    .recovered{
+        background-image: linear-gradient(45deg, #2ed573 0,#dfe4ea 100%);
+    }
+    .active{
+        background-image: linear-gradient(45deg, #F79E02 0,#dfe4ea 100%);
+    }
+    .clipanimate{
+        position: absolute;
+        border-top: none;
+        min-width: 25%;
+        border-radius: 4px;
+    }
+    .clipanimate:hover{
+        transform: scale(1.03);
+        transition: 0.3s ease-in-out;
+        box-shadow: 0 0 20px 0 rgba(72,94,116,0.7);
+    }
+    .clipanimate:hover .paper{    
+        animation: student-card 5s infinite;
+    }
+    @keyframes student-card {
+        0%{
+            clip-path: circle(45.4% at 100% 100%);
+        }
+        25% {
+            clip-path: circle(60% at 50% 100%);
+            opacity: 0.2;
+        }
+        50%{
+            clip-path: circle(45.4% at 0% 100%);
+        }
+        75% {
+            clip-path: circle(60% at 50% 100%);
+            opacity: 0.2;
+        }
+        100%{
+            clip-path: circle(45.4% at 100% 100%);
+        }
+      }
+    .head-data{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .imgicon{
+        display: inline;
+        z-index: 20;
+    }
+    p{
+        font-size: 22px;
+    }
+    h2{
+        font-size: 24px;
+    }
+  }
