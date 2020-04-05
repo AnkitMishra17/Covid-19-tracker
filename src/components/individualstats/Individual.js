@@ -59,7 +59,9 @@ class Countrystats extends Component {
     });
     for (let key in country) {
       if(key !=='countryInfo'){
-        country[key] = country[key].toLocaleString();
+        if(country[key] !== null){
+          country[key] = country[key].toLocaleString();
+        }
       }
     }
     this.stateupdate(country);

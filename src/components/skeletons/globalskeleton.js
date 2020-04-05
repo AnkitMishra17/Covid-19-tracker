@@ -10,7 +10,7 @@ const Styleddiv = styled.div`
 export default function G_loader() {
   const items = [];
     items.push(
-    <Grid item xs={12} sm={6} md={3} key={1}>
+    <Grid item lg={12} md={12} sm={12} xs={12} key={1}>
       <Skeleton width="100%"  height={45}/>
       <Skeleton width="90%"  height={45}/>
       <Skeleton width="100%"  height={45}/>
