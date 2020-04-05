@@ -17,12 +17,13 @@ let covid = require("novelcovid");
 
 const Styleddiv = styled.div`
   position: absolute;
-  top: 48%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: -10px -10px 20px 4px rgba(0, 0, 0, 0.1);
+  z-index: -10;
   @media (max-width: 768px) {
-    top: 40%;
+    top: 80%;
     width: 90%;
   }
 `;
@@ -54,6 +55,11 @@ class Countrystats extends Component {
     let country = await covid.getCountry({
       country: this.props.match.params.id,
     });
+    for (let key in country) {
+      if(key !=='countryInfo'){
+        country[key] = country[key].toLocaleString();
+      }
+    }
     this.stateupdate(country);
   }
   stateupdate = (country) => {
