@@ -1,13 +1,24 @@
-h1{
+.header{
   margin: 200px 200px 0px 200px;
   font-weight: bold;
 }
 .para{
     font-size: 15px;
     font-weight: bold;
-  font-family: "Hind", sans-serif;
+    font-family: "Hind", sans-serif;
 }
-
+.link{
+    text-decoration: none;
+    color: black;
+    font-family: "Sen", sans-serif;
+}
+.link:hover{
+  background-color: #E7717D;
+  border-radius: 20px;
+  color: #FFFFFF;
+  padding: 8px 17px;
+  transition: 0.3s;
+}
 .heading{
   font-size: 17px;
   font-weight: bold;
@@ -15,7 +26,7 @@ h1{
 }
 
 @media (max-width: 768px) {
-  h1{
+  .header{
     margin: 20px 20px;
   }
     .para{

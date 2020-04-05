@@ -17,13 +17,15 @@ let covid = require("novelcovid");
 
 const Styleddiv = styled.div`
   position: absolute;
+  border-top: 5px solid #263560;
+  border-radius: 5px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: -10px -10px 20px 4px rgba(0, 0, 0, 0.1);
   z-index: -10;
   @media (max-width: 768px) {
-    top: 80%;
+    top: 85%;
     width: 90%;
   }
 `;
@@ -97,41 +99,41 @@ class Countrystats extends Component {
               </Grid>
               <Grid container spacing={3}>
                 <Grid item md={6} xs={12}>
-                  <StyledPaper>
+                  <StyledPaper className="cases">
                     <div className="info2">
                       <Avatar variant="rounded" src={casesimg}></Avatar>
                       <h5 className="info1">CONFIRMED CASES</h5>
                     </div>
-                    <h1>{cases}</h1>
+                    <h1 className="info3">{cases}</h1>
                   </StyledPaper>
                 </Grid>
                 <Grid item md={6} xs={12}>
-                  <StyledPaper>
+                  <StyledPaper className="deaths">
                     <div className="info2">
                       <Avatar variant="rounded" src={deathsimg}></Avatar>
                       <h5 className="info1">TOTAL DEATHS</h5>
                     </div>
-                    <h1>{deaths}</h1>
+                    <h1 className="info3">{deaths}</h1>
                   </StyledPaper>
                 </Grid>
               </Grid>
               <Grid container spacing={3}>
                 <Grid item md={6} xs={12}>
-                  <StyledPaper>
+                  <StyledPaper className="recover">
                     <div className="info2">
                       <Avatar variant="rounded" src={recoveredimg}></Avatar>
                       <h5 className="info1">TOTAL RECOVERIES</h5>
                     </div>
-                    <h1>{recovered}</h1>
+                    <h1 className="info3">{recovered}</h1>
                   </StyledPaper>
                 </Grid>
                 <Grid item md={6} xs={12}>
-                  <StyledPaper>
+                  <StyledPaper className="active-cases">
                     <div className="info2">
                       <Avatar variant="rounded" src={activeimg}></Avatar>
                       <h5 className="info1">ACTIVE CASES</h5>
                     </div>
-                    <h1>{active}</h1>
+                    <h1 className="info3">{active}</h1>
                   </StyledPaper>
                 </Grid>
               </Grid>

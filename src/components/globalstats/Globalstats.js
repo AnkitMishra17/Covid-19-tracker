@@ -41,12 +41,12 @@ class Globalstats extends Component {
   render() {
     return (
       <div>
-        <h1>
-          <span role="img" aria-label="emoji">
-            🌎
-          </span>{" "}
-          Country Breakdown
-        </h1>
+          <h1 className="header">
+            <span role="img" aria-label="emoji">
+              🌎
+            </span>{" "}
+            Country Breakdown
+          </h1>
         <Styleddiv>
           <TableContainer component={Paper}>
             <Table size="small" aria-label="a dense table">
@@ -82,15 +82,14 @@ class Globalstats extends Component {
                               fontWeight: "bold"
                             }}
                             className="para"
-                          ></p>
+                          >
                           <Link
                             to={`/country/${row.country}`}
-                            style={{ textDecoration: "none", color: "black" }}
-                            className="para"
+                            className="para link"
                           >
                             {" "}
                             {row.country}{" "}
-                          </Link>
+                          </Link></p>
                         </Countrydiv>
                       </TableCell>
                       <TableCell>
