@@ -11,46 +11,44 @@ import casesimg from "./cases.svg";
 import deathsimg from "./deaths.svg";
 import recoveredimg from "./recoveries.svg";
 import activeimg from "./active_cases.svg";
+import newdeaths from "./newdeaths.svg";
+import cpom from "./cpom.svg";
+import dpom from "./dpom.svg";
+import newcases from "./newcases.svg";
+import criticalcases from "./criticalcases.svg";
 import "./individual.css";
 let covid = require("novelcovid");
 
-const Styleddiv = styled.div`
-  position: absolute;
-  border-top: 5px solid #263560;
-  border-radius: 5px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: -10px -10px 20px 4px rgba(0, 0, 0, 0.1);
-  z-index: -10;
-  @media (max-width: 768px) {
-    top: 85%;
-    width: 90%;
-  }
-  @media (max-device-width : 768px) and (orientation: landscape) {
-    top: 150%;
+const Relativediv = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 50px;
+  @media (max-width: 768px){
+    padding: 20px;
   }
 `;
+const Styleddiv = styled.div`
+  border-top: 5px solid #263560;
+  border-radius: 5px;
+  box-shadow: -10px -10px 20px 4px rgba(0, 0, 0, 0.1);
+  z-index: -10;
+  
+`;
 const CustomGrid = styled(Grid)`
-  position: absolute;
   border-radius: 5px;
   border-top: 5px solid #263560;
+  padding: 20px;
+  margin-top: 50px;
   margin-bottom: 50px;
-  top: 120%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 80%;
   box-shadow: -10px -5px 20px 4px rgba(0, 0, 0, 0.1);
   z-index: -10;
-  @media (min-width : 768px) and (max-width: 1200px){
-    top: 145%;
-  }
   @media (max-device-width : 768px) and (orientation: portrait) {
-    top: 200%;
-    width: 90%;
-  }
-  @media (max-device-width : 768px) and (orientation: landscape) {
-    top: 350%;
-    width: 90%;
+    width:100%;
+    padding: 0px;
   }
 `;
 
@@ -81,6 +79,7 @@ class Countrystats extends Component {
     let country = await covid.getCountry({
       country: this.props.match.params.id,
     });
+    window.scrollTo(0, 0);
     for (let key in country) {
       if (key !== "countryInfo") {
         if (country[key] !== null) {
@@ -112,6 +111,7 @@ class Countrystats extends Component {
     } = this.state.data;
     return (
       <React.Fragment>
+        <Relativediv>
         <Styleddiv>
           <CustomCard>
             <CardActionArea>
@@ -185,7 +185,7 @@ class Countrystats extends Component {
           <Grid item md={4} xs={6}>
             <StyledPaper className="secondaryinfo">
               <div className="info2">
-                <Avatar variant="rounded" src={recoveredimg}></Avatar>
+                <Avatar variant="rounded" src={newcases}></Avatar>
                 <h5 className="info1">NEW CASES</h5>
               </div>
               <h1 className="info3">+{todayCases}</h1>
@@ -194,7 +194,7 @@ class Countrystats extends Component {
           <Grid item md={4} xs={6}>
             <StyledPaper className="secondaryinfo">
               <div className="info2">
-                <Avatar variant="rounded" src={activeimg}></Avatar>
+                <Avatar variant="rounded" src={newdeaths}></Avatar>
                 <h5 className="info1">NEW DEATHS</h5>
               </div>
               <h1 className="info3">{todayDeaths}</h1>
@@ -203,31 +203,32 @@ class Countrystats extends Component {
           <Grid item md={4} xs={6}>
             <StyledPaper className="secondaryinfo">
               <div className="info2">
-                <Avatar variant="rounded" src={activeimg}></Avatar>
+                <Avatar variant="rounded" src={criticalcases}></Avatar>
                 <h5 className="info1">CRITICIAL</h5>
               </div>
               <h1 className="info3">{critical}</h1>
             </StyledPaper>
           </Grid>
-          <Grid item md={5} xs={6}>
+          <Grid item md={4} xs={6}>
             <StyledPaper className="secondaryinfo">
               <div className="info2">
-                <Avatar variant="rounded" src={activeimg}></Avatar>
+                <Avatar variant="rounded" src={cpom}></Avatar>
                 <h5 className="info1">CASES/1 MIL</h5>
               </div>
               <h1 className="info3">{casesPerOneMillion}</h1>
             </StyledPaper>
           </Grid>
-          <Grid item md={5} xs={6}>
+          <Grid item md={4} xs={6}>
             <StyledPaper className="secondaryinfo">
               <div className="info2">
-                <Avatar variant="rounded" src={activeimg}></Avatar>
+                <Avatar variant="rounded" src={dpom}></Avatar>
                 <h5 className="info1">DEATHS/1 MIL</h5>
               </div>
               <h1 className="info3">{deathsPerOneMillion}</h1>
             </StyledPaper>
           </Grid>
         </CustomGrid>
+        </Relativediv>
       </React.Fragment>
     );
   }
