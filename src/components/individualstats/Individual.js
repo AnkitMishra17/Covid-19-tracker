@@ -27,6 +27,9 @@ const Styleddiv = styled.div`
     top: 85%;
     width: 90%;
   }
+  @media (max-device-width : 768px) and (orientation: landscape) {
+    top: 150%;
+  }
 `;
 const CustomGrid = styled(Grid)`
   position: absolute;
@@ -35,12 +38,19 @@ const CustomGrid = styled(Grid)`
   margin-bottom: 50px;
   top: 120%;
   left: 50%;
-  width: 90%;
   transform: translate(-50%, -50%);
   box-shadow: -10px -5px 20px 4px rgba(0, 0, 0, 0.1);
   z-index: -10;
-  @media screen and (max-width: 768px) {
-    top: 150%;
+  @media (min-width : 768px) and (max-width: 1200px){
+    top: 145%;
+  }
+  @media (max-device-width : 768px) and (orientation: portrait) {
+    top: 200%;
+    width: 90%;
+  }
+  @media (max-device-width : 768px) and (orientation: landscape) {
+    top: 350%;
+    width: 90%;
   }
 `;
 
@@ -106,7 +116,7 @@ class Countrystats extends Component {
           <CustomCard>
             <CardActionArea>
               <CardContent>
-                <Grid container spacing={3}>
+                <Grid container spacing={3} >
                   <Grid item xs>
                     <Typo gutterBottom variant="h5" component="h2">
                       {country}
