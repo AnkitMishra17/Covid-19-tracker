@@ -7,6 +7,7 @@ import {
 import BacktoTop from './components/navigation/Navbar.js';
 import Loader from './components/skeletons/Skeleton.js';
 import Gloader from './components/skeletons/globalskeleton.js';
+import Countryloader from './components/skeletons/countryskeleton.js';
 const Banner =  lazy(()=>import('./components/banner/Banner.js'));
 const Stats = lazy(()=>import('./components/stat/Stats.js')) 
 const Globalstats = lazy(()=>import('./components/globalstats/Globalstats.js')) 
@@ -27,7 +28,7 @@ function App() {
             <Globalstats/>
           </Suspense>
         </Route>
-        <Suspense fallback={<Loader/>}>
+        <Suspense fallback={<Countryloader/>}>
           <Route path="/country/:id" component={Countrystat}>
           </Route>
         </Suspense>

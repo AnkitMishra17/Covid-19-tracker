@@ -32,10 +32,10 @@ p{
         border-top: none;
         min-width: 25%;
         border-radius: 4px;
+        transition: 0.3s ease-in-out;
     }
     .clipanimate:hover{
         transform: scale(1.03);
-        transition: 0.3s ease-in-out;
         box-shadow: 0 0 20px 0 rgba(72,94,116,0.7);
     }
     .clipanimate:hover .paper{    

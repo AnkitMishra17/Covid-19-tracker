@@ -11,20 +11,20 @@
     text-decoration: none;
     color: black;
     font-family: "Sen", sans-serif;
+    transition: 0.3s ease-in-out;
+    transition-timing-function: linear;
 }
 .link:hover{
   background-color: #E7717D;
   border-radius: 20px;
   color: #FFFFFF;
-  padding: 8px 17px;
-  transition: 0.3s;
+  padding: 10px 10px;
 }
 .heading{
   font-size: 17px;
   font-weight: bold;
   font-family: 'Sen', sans-serif;
 }
-
 @media (max-width: 768px) {
   .header{
     margin: 20px 20px;

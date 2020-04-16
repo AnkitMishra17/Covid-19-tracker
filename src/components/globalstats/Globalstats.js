@@ -62,7 +62,8 @@ class Globalstats extends Component {
                   <TableCell className="heading">Recovered</TableCell>
                   <TableCell className="heading">Active Cases</TableCell>
                   <TableCell className="heading">Critical</TableCell>
-                  <TableCell className="heading">DOPM</TableCell>
+                  <TableCell className="heading">Cases/1M</TableCell>
+                  <TableCell className="heading">Deaths/1M</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -93,28 +94,31 @@ class Globalstats extends Component {
                         </Countrydiv>
                       </TableCell>
                       <TableCell>
-                        <p className="para">{row.cases}</p>
+                        <p className="para">{row.cases.toLocaleString()}</p>
                       </TableCell>
                       <TableCell>
-                        <p className="para">+{row.todayCases}</p>
+                        <p className="para">+{row.todayCases.toLocaleString()}</p>
                       </TableCell>
                       <TableCell>
-                        <p className="para">{row.deaths}</p>
+                        <p className="para">{row.deaths.toLocaleString()}</p>
                       </TableCell>
                       <TableCell style={{ color: "#E85A4F" }}>
-                        <p className="para">+{row.todayDeaths}</p>
+                        <p className="para">+{row.todayDeaths.toLocaleString()}</p>
                       </TableCell>
                       <TableCell style={{ color: "#2ed573" }}>
-                        <p className="para">{row.recovered}</p>
+                        <p className="para">{row.recovered.toLocaleString()}</p>
                       </TableCell>
                       <TableCell>
-                        <p className="para">{row.active}</p>
+                        <p className="para">{row.active.toLocaleString()}</p>
                       </TableCell>
                       <TableCell>
-                        <p className="para">{row.critical}</p>
+                        <p className="para" style={{color: "#F79E02"}}>{row.critical.toLocaleString()}</p>
                       </TableCell>
                       <TableCell>
-                        <p className="para">{row.deathsPerOneMillion}</p>
+                        <p className="para">{row.casesPerOneMillion.toLocaleString()}</p>
+                      </TableCell>
+                      <TableCell>
+                        <p className="para">{row.deathsPerOneMillion.toLocaleString()}</p>
                       </TableCell>
                     </TableRow>
                   ) : (

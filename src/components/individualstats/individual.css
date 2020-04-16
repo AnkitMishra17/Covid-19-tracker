@@ -40,3 +40,17 @@
 .active-cases{
     border-left: 5px solid #F79E02;
 }
+.secondaryinfo{
+    border-left: 5px solid #1F1F29;
+}
+@media (max-width: 768px) {
+    .info1{
+        font-size: 16px;
+        position: relative;
+        top: -30px;
+    }
+    .info3{
+        font-size: 32px;
+        top: -50px;
+    }
+  }
