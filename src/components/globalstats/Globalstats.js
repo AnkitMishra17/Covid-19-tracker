@@ -10,7 +10,8 @@ import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import styled from "styled-components";
 import "./global.css";
-let covid = require("novelcovid");
+const { NovelCovid } = require('novelcovid');
+const track = new NovelCovid();
 
 const Styleddiv = styled.div`
   margin: 40px 200px;
@@ -32,7 +33,7 @@ class Globalstats extends Component {
   };
 
   async componentDidMount() {
-    let country_stats = await covid.getCountry({ sort: "cases" });
+    let country_stats = await track.countries(null, 'cases');
     this.setState({
       data: [...this.state.data, ...country_stats]
     });
