@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Piechart from "./Charts/Piechart.js";
+import Activegraph from "./Charts/Activegraph.js";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
@@ -89,7 +90,7 @@ class Countrystats extends Component {
     for (let key in country) {
       if (key !== "countryInfo") {
         if (country[key] !== null) {
-          country[key] = country[key];
+          country[key] = country[key].toLocaleString();
         }
       }
     }
@@ -99,15 +100,15 @@ class Countrystats extends Component {
     });
     this.updatechartstate();
   }
-  updatechartstate=()=>{
-    const {active,deaths,recovered} = this.state.data;
+  updatechartstate = () => {
+    const { active, deaths, recovered } = this.state.data;
     this.setState({
       piedata: {
         labels: ["Active", "Deaths", "Recovered"],
         datasets: [
           {
             label: "Total Confirmed Cases",
-            data: [active,deaths,recovered],
+            data: [parseFloat(active.replace(/,/g, '')), parseFloat(deaths.replace(/,/g, '')), parseFloat(recovered.replace(/,/g, ''))],
             backgroundColor: [
               "rgba(247, 158, 2, 0.7)",
               "rgba(232, 90, 79, 0.7)",
@@ -115,9 +116,9 @@ class Countrystats extends Component {
             ],
           },
         ],
-      }
-    })
-  }
+      },
+    });
+  };
 
   render() {
     const {
@@ -259,9 +260,16 @@ class Countrystats extends Component {
             </Grid>
           </CustomGrid>
         </Relativediv>
-        <Piechart
-          pieData={this.state.piedata}
-        />
+        <Grid container spacing={3} 
+            justify="center"
+            alignItems="center" style={{padding:"10px",maxWidth:"100%"}}>
+          <Grid item md={5} xs={12}>
+              <Piechart pieData={this.state.piedata} />
+          </Grid>
+          <Grid item md={5} xs={12}>
+              <Activegraph country={this.state.data.country}/>
+          </Grid>
+        </Grid>
       </React.Fragment>
     );
   }

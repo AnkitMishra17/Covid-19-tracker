@@ -10,7 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import styled from "styled-components";
 import "./global.css";
-const { NovelCovid } = require('novelcovid');
+const { NovelCovid } = require("novelcovid");
 const track = new NovelCovid();
 
 const Styleddiv = styled.div`
@@ -29,25 +29,25 @@ const Countrydiv = styled.div`
 
 class Globalstats extends Component {
   state = {
-    data: []
+    data: [],
   };
 
   async componentDidMount() {
-    let country_stats = await track.countries(null, 'cases');
+    let country_stats = await track.countries(null, "cases");
     this.setState({
-      data: [...this.state.data, ...country_stats]
+      data: [...this.state.data, ...country_stats],
     });
   }
 
   render() {
     return (
       <div>
-          <h1 className="header">
-            <span role="img" aria-label="emoji">
-              🌎
-            </span>{" "}
-            Country Breakdown
-          </h1>
+        <h1 className="header">
+          <span role="img" aria-label="emoji">
+            🌎
+          </span>{" "}
+          Country Breakdown
+        </h1>
         <Styleddiv>
           <TableContainer component={Paper}>
             <Table size="small" aria-label="a dense table">
@@ -68,7 +68,7 @@ class Globalstats extends Component {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {this.state.data.map(row =>
+                {this.state.data.map((row) =>
                   row.country !== "World" ? (
                     <TableRow key={row.country}>
                       <TableCell>
@@ -81,30 +81,35 @@ class Globalstats extends Component {
                             style={{
                               marginLeft: "25px",
                               marginBottom: "-3px",
-                              fontWeight: "bold"
+                              fontWeight: "bold",
                             }}
                             className="para"
                           >
-                          <Link
-                            to={`/country/${row.country}`}
-                            className="para link"
-                          >
-                            {" "}
-                            {row.country}{" "}
-                          </Link></p>
+                            <Link
+                              to={`/country/${row.country}`}
+                              className="para link"
+                            >
+                              {" "}
+                              {row.country}{" "}
+                            </Link>
+                          </p>
                         </Countrydiv>
                       </TableCell>
                       <TableCell>
                         <p className="para">{row.cases.toLocaleString()}</p>
                       </TableCell>
                       <TableCell>
-                        <p className="para">+{row.todayCases.toLocaleString()}</p>
+                        <p className="para">
+                          +{row.todayCases.toLocaleString()}
+                        </p>
                       </TableCell>
                       <TableCell>
                         <p className="para">{row.deaths.toLocaleString()}</p>
                       </TableCell>
                       <TableCell style={{ color: "#E85A4F" }}>
-                        <p className="para">+{row.todayDeaths.toLocaleString()}</p>
+                        <p className="para">
+                          +{row.todayDeaths.toLocaleString()}
+                        </p>
                       </TableCell>
                       <TableCell style={{ color: "#2ed573" }}>
                         <p className="para">{row.recovered.toLocaleString()}</p>
@@ -113,13 +118,19 @@ class Globalstats extends Component {
                         <p className="para">{row.active.toLocaleString()}</p>
                       </TableCell>
                       <TableCell>
-                        <p className="para" style={{color: "#F79E02"}}>{row.critical.toLocaleString()}</p>
+                        <p className="para" style={{ color: "#F79E02" }}>
+                          {row.critical.toLocaleString()}
+                        </p>
                       </TableCell>
                       <TableCell>
-                        <p className="para">{row.casesPerOneMillion.toLocaleString()}</p>
+                        <p className="para">
+                          {row.casesPerOneMillion.toLocaleString()}
+                        </p>
                       </TableCell>
                       <TableCell>
-                        <p className="para">{row.deathsPerOneMillion.toLocaleString()}</p>
+                        <p className="para">
+                          {row.deathsPerOneMillion.toLocaleString()}
+                        </p>
                       </TableCell>
                     </TableRow>
                   ) : (
