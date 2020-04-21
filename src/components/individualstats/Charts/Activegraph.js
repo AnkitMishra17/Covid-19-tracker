@@ -30,30 +30,30 @@ const Relativediv = styled.div`
 export default class Activegraph extends Component {
   state = {
     chartdata: {},
-    selected_value: "cases"
+    selected_value: "cases",
   };
   async componentDidUpdate(props) {
     let country = this.props.country;
     this.getchartdata(country);
   }
-  async getchartdata(country){
+  async getchartdata(country) {
     let countrydata = await track.historical(null, country);
     this.setchartdata(countrydata);
   }
   async setchartdata(countrydata) {
     let cases_data = [];
     let dates = [];
-    let data_timeline,label,background;
+    let data_timeline, label, background;
     let { selected_value } = this.state;
-    if(selected_value === "cases"){
+    if (selected_value === "cases") {
       data_timeline = countrydata.timeline.cases;
       label = "Timeline of Confirmed Cases";
       background = "rgba(247, 158, 2, 0.7)";
-    }else if(selected_value === "recovered"){
+    } else if (selected_value === "recovered") {
       data_timeline = countrydata.timeline.recovered;
       label = "Timeline of Recovered Patients";
       background = "rgba(46, 213, 115, 0.7)";
-    }else{
+    } else {
       data_timeline = countrydata.timeline.deaths;
       label = "Timeline of Deceased Patients";
       background = "rgba(232, 90, 79, 0.7)";
@@ -75,18 +75,18 @@ export default class Activegraph extends Component {
       },
     });
   }
-  updateselect= (e)=> {
+  updateselect = (e) => {
     this.setState({
-      selected_value: e.target.value
-    })
-  }
+      selected_value: e.target.value,
+    });
+  };
   render() {
     return (
       <div>
         <Grid container spacing={3} justify="center" alignItems="center">
           <Grid item md={12} xs={12}>
             <Relativediv style={{ height: "400px" }}>
-              <FormControl style={{padding: "20px" }}>
+              <FormControl style={{ padding: "20px" }}>
                 <Select
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
