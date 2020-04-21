@@ -7,8 +7,8 @@ import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
+import logo from "../../assets/logo_1.png";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Zoom from '@material-ui/core/Zoom';
 
@@ -74,13 +74,11 @@ export default function BackToTop(props) {
       <CssBaseline />
       <AppBar>
         <Toolbar className={classes.changeheight}>
-          <Avatar src="./logo1.png" />
+          <Avatar src={logo} />
           <Typography variant="h5" className={classes.typo}>Coronavirus Tracker!</Typography>
         </Toolbar>
       </AppBar>
       <Toolbar id="back-to-top-anchor"/>
-      <Container>
-      </Container>
       <ScrollTop {...props}>
         <Fab color="primary"  size="small" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />

@@ -1,6 +1,4 @@
-import React, { Component } from "react";
-import Piechart from "./Charts/Piechart.js";
-import Activegraph from "./Charts/Activegraph.js";
+import React, { lazy, Suspense, Component } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
@@ -18,7 +16,10 @@ import cpom from "./cpom.svg";
 import dpom from "./dpom.svg";
 import newcases from "./newcases.svg";
 import criticalcases from "./criticalcases.svg";
+import Chartloader from "../skeletons/chartskeleton.js";
 import "./individual.css";
+const Activegraph = lazy(() => import("./Charts/Activegraph.js"));
+const Piechart = lazy(() => import("./Charts/Piechart.js"));
 const { NovelCovid } = require("novelcovid");
 const track = new NovelCovid();
 
@@ -108,7 +109,11 @@ class Countrystats extends Component {
         datasets: [
           {
             label: "Total Confirmed Cases",
-            data: [parseFloat(active.replace(/,/g, '')), parseFloat(deaths.replace(/,/g, '')), parseFloat(recovered.replace(/,/g, ''))],
+            data: [
+              parseFloat(active.replace(/,/g, "")),
+              parseFloat(deaths.replace(/,/g, "")),
+              parseFloat(recovered.replace(/,/g, "")),
+            ],
             backgroundColor: [
               "rgba(247, 158, 2, 0.7)",
               "rgba(232, 90, 79, 0.7)",
@@ -260,14 +265,22 @@ class Countrystats extends Component {
             </Grid>
           </CustomGrid>
         </Relativediv>
-        <Grid container spacing={3} 
-            justify="center"
-            alignItems="center" style={{padding:"10px",maxWidth:"100%"}}>
+        <Grid
+          container
+          spacing={3}
+          justify="center"
+          alignItems="center"
+          style={{ padding: "10px", maxWidth: "100%" }}
+        >
           <Grid item md={5} xs={12}>
+            <Suspense fallback={<Chartloader />}>
               <Piechart pieData={this.state.piedata} />
+            </Suspense>
           </Grid>
           <Grid item md={5} xs={12}>
+            <Suspense fallback={<Chartloader />}>
               <Activegraph country={this.state.data.country}/>
+            </Suspense>
           </Grid>
         </Grid>
       </React.Fragment>

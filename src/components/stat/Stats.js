@@ -18,6 +18,10 @@ const Styleddiv = styled.div`
   margin: 25px 50px;
   position: relative;
   top: -60px;
+  left: -20px;
+  @media (max-width: 768px) {
+    left: 0px;
+  }
 `;
 class Stats extends Component {
   state = {

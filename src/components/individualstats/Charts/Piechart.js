@@ -8,7 +8,7 @@ const Relativediv = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  border-radius:5px;
+  border-radius: 5px;
   border-top: 5px solid #263560;
   align-items: center;
   margin: 10px;
