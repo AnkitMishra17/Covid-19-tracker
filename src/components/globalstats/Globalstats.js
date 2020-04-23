@@ -26,6 +26,16 @@ const Countrydiv = styled.div`
   flex-direction: row;
   font-family: "Hind", sans-serif;
 `;
+const CustomTableCell = styled(TableCell)`
+  border: 2px solid #ececec;
+  padding: 2px 5px 2px 5px;
+`;
+let CustomTableRow;
+CustomTableRow = styled(TableRow)`
+  ${CustomTableRow}:nth-child(odd) {
+    background:rgba(252, 248, 232, 0.8);
+  }
+`;
 
 class Globalstats extends Component {
   state = {
@@ -68,75 +78,73 @@ class Globalstats extends Component {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {this.state.data.map((row) =>
-                  row.country !== "World" ? (
-                    <TableRow key={row.country}>
-                      <TableCell>
-                        <Countrydiv>
-                          <Avatar
-                            variant="circle"
-                            src={row.countryInfo.flag}
-                          ></Avatar>
-                          <p
-                            style={{
-                              marginLeft: "25px",
-                              marginBottom: "-3px",
-                              fontWeight: "bold",
-                            }}
-                            className="para"
+                {this.state.data.map((row) => (
+                  <CustomTableRow key={row.country}>
+                    <CustomTableCell>
+                      <Countrydiv>
+                        <Avatar
+                          variant="circle"
+                          src={row.countryInfo.flag}
+                        ></Avatar>
+                        <p
+                          style={{
+                            marginLeft: "25px",
+                            marginBottom: "-3px",
+                            fontWeight: "bold",
+                          }}
+                          className="para"
+                        >
+                          <Link
+                            to={`/country/${row.country}`}
+                            className="para link"
                           >
-                            <Link
-                              to={`/country/${row.country}`}
-                              className="para link"
-                            >
-                              {" "}
-                              {row.country}{" "}
-                            </Link>
-                          </p>
-                        </Countrydiv>
-                      </TableCell>
-                      <TableCell>
-                        <p className="para">{row.cases.toLocaleString()}</p>
-                      </TableCell>
-                      <TableCell>
-                        <p className="para">
-                          +{row.todayCases.toLocaleString()}
+                            {" "}
+                            {row.country}{" "}
+                          </Link>
                         </p>
-                      </TableCell>
-                      <TableCell>
-                        <p className="para">{row.deaths.toLocaleString()}</p>
-                      </TableCell>
-                      <TableCell style={{ color: "#E85A4F" }}>
-                        <p className="para">
-                          +{row.todayDeaths.toLocaleString()}
-                        </p>
-                      </TableCell>
-                      <TableCell style={{ color: "#2ed573" }}>
-                        <p className="para">{row.recovered.toLocaleString()}</p>
-                      </TableCell>
-                      <TableCell>
-                        <p className="para">{row.active.toLocaleString()}</p>
-                      </TableCell>
-                      <TableCell>
-                        <p className="para" style={{ color: "#F79E02" }}>
-                          {row.critical.toLocaleString()}
-                        </p>
-                      </TableCell>
-                      <TableCell>
-                        <p className="para">
-                          {row.casesPerOneMillion.toLocaleString()}
-                        </p>
-                      </TableCell>
-                      <TableCell>
-                        <p className="para">
-                          {row.deathsPerOneMillion.toLocaleString()}
-                        </p>
-                      </TableCell>
-                    </TableRow>
-                  ) : (
-                    <h1> </h1>
-                  )
-                )}
+                      </Countrydiv>
+                    </CustomTableCell>
+                    <CustomTableCell>
+                      <p className="para">{row.cases.toLocaleString()}</p>
+                    </CustomTableCell>
+                    <CustomTableCell>
+                      <p className="para">+{row.todayCases.toLocaleString()}</p>
+                    </CustomTableCell>
+                    <CustomTableCell>
+                      <p className="para">{row.deaths.toLocaleString()}</p>
+                    </CustomTableCell>
+                    <CustomTableCell
+                      style={{ backgroundColor: "rgba(232, 90, 79, 0.5)" }}
+                    >
+                      <p className="para">
+                        +{row.todayDeaths.toLocaleString()}
+                      </p>
+                    </CustomTableCell>
+                    <CustomTableCell
+                      style={{ backgroundColor: "rgba(46, 213, 115, 0.5)" }}
+                    >
+                      <p className="para">{row.recovered.toLocaleString()}</p>
+                    </CustomTableCell>
+                    <CustomTableCell>
+                      <p className="para">{row.active.toLocaleString()}</p>
+                    </CustomTableCell>
+                    <CustomTableCell
+                      style={{ backgroundColor: "rgba(247, 158, 2, 0.5)" }}
+                    >
+                      <p className="para">{row.critical.toLocaleString()}</p>
+                    </CustomTableCell>
+                    <CustomTableCell>
+                      <p className="para">
+                        {row.casesPerOneMillion.toLocaleString()}
+                      </p>
+                    </CustomTableCell>
+                    <CustomTableCell>
+                      <p className="para">
+                        {row.deathsPerOneMillion.toLocaleString()}
+                      </p>
+                    </CustomTableCell>
+                  </CustomTableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>

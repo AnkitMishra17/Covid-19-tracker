@@ -13,6 +13,7 @@ const Relativediv = styled.div`
   align-items: center;
   margin: 10px;
   width: 100%;
+  background-color:rgba(244, 244, 244, 0.5);
   box-shadow: -10px -10px 30px 2px rgba(0, 0, 0, 0.1);
   margin-top: 50px;
   padding: 50px;

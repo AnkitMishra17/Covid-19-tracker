@@ -18,6 +18,7 @@ const Relativediv = styled.div`
   align-items: center;
   border-radius: 5px;
   border-top: 5px solid #263560;
+  background-color: rgba(244, 244, 244, 0.5);
   box-shadow: -10px -10px 30px 2px rgba(0, 0, 0, 0.1);
   margin: 10px;
   padding: 50px;
@@ -124,12 +125,12 @@ export default class Activegraph extends Component {
                   />
                 </Grid>
                 <Grid item md={7} xs={5}>
-                  <FormControl style={{ padding: "20px", marginLeft: "10px" }}>
+                  <FormControl style={{ padding: "20px", marginLeft: "10px"}}>
                     <Select
                       labelId="demo-simple-select-helper-label"
                       id="demo-simple-select-helper"
                       value={this.state.selected_value}
-                      style={{ width: "180px" }}
+                      style={{ width: "180px"}}
                       onChange={this.updateselect}
                     >
                       <MenuItem value={"Choose option"} disabled>Choose option</MenuItem>

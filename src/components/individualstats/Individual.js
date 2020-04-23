@@ -46,6 +46,7 @@ const CustomGrid = styled(Grid)`
   padding: 20px;
   margin-top: 50px;
   margin-bottom: 50px;
+  background-color:rgba(244, 244, 244, 0.5);
   width: 80%;
   box-shadow: -10px -5px 20px 4px rgba(0, 0, 0, 0.1);
   z-index: -10;
@@ -68,6 +69,7 @@ const Typo = styled(Typography)`
 
 const CustomCard = styled(Card)`
   width: 750px;
+  background-color:rgba(244, 244, 244, 0.5);
   @media (max-width: 768px) {
     width: 100%;
   }
