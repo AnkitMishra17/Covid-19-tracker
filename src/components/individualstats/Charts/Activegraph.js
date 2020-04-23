@@ -36,8 +36,8 @@ export default class Activegraph extends Component {
     selected_value: "Choose option",
     chart_type: false,
   };
-  componentDidUpdate(props,prevstate) {
-    if(this.state.selected_value !== prevstate.selected_value){
+  componentDidUpdate(props, prevstate) {
+    if (this.state.selected_value !== prevstate.selected_value) {
       let country = this.props.country;
       this.getchartdata(country);
     }
@@ -47,36 +47,82 @@ export default class Activegraph extends Component {
     this.setchartdata(countrydata);
   }
   async setchartdata(countrydata) {
-    let cases_data = [];
+    let cases_data = [],
+      deaths_data = [],
+      recovered_data = [];
     let dates = [];
-    let data_timeline, label, background, border;
+    let data_timeline,
+      data_timeline1,
+      data_timeline2,
+      label,
+      background,
+      border;
     let { selected_value } = this.state;
     if (selected_value === "cases") {
       data_timeline = countrydata.timeline.cases;
-      label = "Confirmed Cases Since 22nd of March";
+      label = "Confirmed Case";
       background = "rgba(247, 158, 2, 0.7)";
       border = "rgba(247, 158, 2, 1)";
     } else if (selected_value === "recovered") {
       data_timeline = countrydata.timeline.recovered;
-      label = "Recovered Patients Since 22nd of March";
+      label = "Recovered Patients";
       background = "rgba(46, 213, 115, 0.7)";
       border = "rgba(46, 213, 115, 1)";
     } else if (selected_value === "deaths") {
       data_timeline = countrydata.timeline.deaths;
-      label = "Deceased Patients Since 22nd of March";
+      label = "Deceased Patients";
       background = "rgba(232, 90, 79, 0.7)";
       border = "rgba(232, 90, 79, 1)";
+    } else if (selected_value === "dailydeaths") {
+      data_timeline = countrydata.timeline.deaths;
+      label = "Daily Deaths";
+      background = "rgba(215, 35, 35, 0.7)";
+      border = "rgba(215, 35, 35, 1)";
+    } else if (selected_value === "dailyrecovered") {
+      data_timeline = countrydata.timeline.recovered;
+      label = "New Recoveries";
+      background = "rgba(80, 216, 144, 0.7)";
+      border = "rgba(80, 216, 144, 1)";
+    } else if (selected_value === "active") {
+      data_timeline = countrydata.timeline.cases;
+      data_timeline1 = countrydata.timeline.deaths;
+      data_timeline2 = countrydata.timeline.recovered;
+      label = "Active Cases";
+      background = "rgba(225, 100, 40, 0.7)";
+      border = "rgba(225, 100, 40, 1)";
     } else {
       data_timeline = countrydata.timeline.cases;
-      label = "Daily Cases Since 22nd of March";
+      label = "Daily Cases";
       background = "rgba(40, 81, 138, 0.7)";
       border = "rgba(40, 81, 138, 1)";
     }
-    for (let key in data_timeline) {
-      dates.push(key);
-      cases_data.push(data_timeline[key]);
+    if (selected_value === "active") {
+      for (let key in data_timeline) {
+        dates.push(key);
+        cases_data.push(data_timeline[key]);
+        deaths_data.push(data_timeline1[key]);
+        recovered_data.push(data_timeline2[key]);
+      }
+      cases_data = cases_data.map(function (elem, index) {
+        return cases_data[index] - (deaths_data[index] + recovered_data[index]);
+      });
+    } else {
+      for (let key in data_timeline) {
+        dates.push(key);
+        cases_data.push(data_timeline[key]);
+      }
     }
     if (selected_value === "daily") {
+      cases_data = cases_data.map(function (elem, index) {
+        return cases_data[index + 1] - cases_data[index];
+      });
+    }
+    if (selected_value === "dailydeaths") {
+      cases_data = cases_data.map(function (elem, index) {
+        return cases_data[index + 1] - cases_data[index];
+      });
+    }
+    if (selected_value === "dailyrecovered") {
       cases_data = cases_data.map(function (elem, index) {
         return cases_data[index + 1] - cases_data[index];
       });
@@ -112,7 +158,12 @@ export default class Activegraph extends Component {
         <Grid container spacing={3} justify="center" alignItems="center">
           <Grid item md={12} xs={12}>
             <Relativediv style={{ height: "400px" }}>
-              <Grid container spacing={3} justify="flex-start" alignItems="center">
+              <Grid
+                container
+                spacing={3}
+                justify="flex-start"
+                alignItems="center"
+              >
                 <Grid item md={4} xs={2}>
                   <FormControlLabel
                     control={
@@ -125,19 +176,24 @@ export default class Activegraph extends Component {
                   />
                 </Grid>
                 <Grid item md={7} xs={5}>
-                  <FormControl style={{ padding: "20px", marginLeft: "10px"}}>
+                  <FormControl style={{ padding: "20px", marginLeft: "10px" }}>
                     <Select
                       labelId="demo-simple-select-helper-label"
                       id="demo-simple-select-helper"
                       value={this.state.selected_value}
-                      style={{ width: "180px"}}
+                      style={{ width: "180px" }}
                       onChange={this.updateselect}
                     >
-                      <MenuItem value={"Choose option"} disabled>Choose option</MenuItem>
+                      <MenuItem value={"Choose option"} disabled>
+                        Choose option
+                      </MenuItem>
                       <MenuItem value={"cases"}>Cases</MenuItem>
                       <MenuItem value={"deaths"}>Deaths</MenuItem>
                       <MenuItem value={"recovered"}>Recovered</MenuItem>
-                      <MenuItem value={"daily"}>Daily cases</MenuItem>
+                      <MenuItem value={"active"}>Active</MenuItem>
+                      <MenuItem value={"daily"}>Daily Cases</MenuItem>
+                      <MenuItem value={"dailydeaths"}>Daily Deaths</MenuItem>
+                      <MenuItem value={"dailyrecovered"}>Daily Recoveries</MenuItem>
                     </Select>
                     <FormHelperText>Select the graph.</FormHelperText>
                   </FormControl>
