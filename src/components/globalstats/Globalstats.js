@@ -33,7 +33,7 @@ const CustomTableCell = styled(TableCell)`
 let CustomTableRow;
 CustomTableRow = styled(TableRow)`
   ${CustomTableRow}:nth-child(odd) {
-    background:rgba(252, 248, 232, 0.8);
+    background: rgba(252, 248, 232, 0.8);
   }
 `;
 
@@ -44,6 +44,17 @@ class Globalstats extends Component {
 
   async componentDidMount() {
     let country_stats = await track.countries(null, "cases");
+    country_stats.map((obj) => {
+      for (let key in obj) {
+        if (key !== "countryInfo") {
+          if (obj[key] === null) {
+            obj[key] = 0;
+          } else {
+            obj[key] = obj[key].toLocaleString();
+          }
+        }
+      }
+    });
     this.setState({
       data: [...this.state.data, ...country_stats],
     });
@@ -105,43 +116,37 @@ class Globalstats extends Component {
                       </Countrydiv>
                     </CustomTableCell>
                     <CustomTableCell>
-                      <p className="para">{row.cases.toLocaleString()}</p>
+                      <p className="para">{row.cases}</p>
                     </CustomTableCell>
                     <CustomTableCell>
-                      <p className="para">+{row.todayCases.toLocaleString()}</p>
+                      <p className="para">+{row.todayCases}</p>
                     </CustomTableCell>
                     <CustomTableCell>
-                      <p className="para">{row.deaths.toLocaleString()}</p>
+                      <p className="para">{row.deaths}</p>
                     </CustomTableCell>
                     <CustomTableCell
                       style={{ backgroundColor: "rgba(232, 90, 79, 0.5)" }}
                     >
-                      <p className="para">
-                        +{row.todayDeaths.toLocaleString()}
-                      </p>
+                      <p className="para">+{row.todayDeaths}</p>
                     </CustomTableCell>
                     <CustomTableCell
                       style={{ backgroundColor: "rgba(46, 213, 115, 0.5)" }}
                     >
-                      <p className="para">{row.recovered.toLocaleString()}</p>
+                      <p className="para">{row.recovered}</p>
                     </CustomTableCell>
                     <CustomTableCell>
-                      <p className="para">{row.active.toLocaleString()}</p>
+                      <p className="para">{row.active}</p>
                     </CustomTableCell>
                     <CustomTableCell
                       style={{ backgroundColor: "rgba(247, 158, 2, 0.5)" }}
                     >
-                      <p className="para">{row.critical.toLocaleString()}</p>
+                      <p className="para">{row.critical}</p>
                     </CustomTableCell>
                     <CustomTableCell>
-                      <p className="para">
-                        {row.casesPerOneMillion.toLocaleString()}
-                      </p>
+                      <p className="para">{row.casesPerOneMillion}</p>
                     </CustomTableCell>
                     <CustomTableCell>
-                      <p className="para">
-                        {row.deathsPerOneMillion.toLocaleString()}
-                      </p>
+                      <p className="para">{row.deathsPerOneMillion}</p>
                     </CustomTableCell>
                   </CustomTableRow>
                 ))}
