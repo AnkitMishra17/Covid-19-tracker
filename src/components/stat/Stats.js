@@ -5,9 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import styled from "styled-components";
 import confirmed from "./confirmed.png";
 import recovered from "./recovery.png";
+import { fetchTotal } from "../../static/app.api";
 import "./stats.css";
-const { NovelCovid } = require('novelcovid');
-const track = new NovelCovid();
 
 const StyledPaper = styled(Paper)`
   text-align: center;
@@ -32,15 +31,17 @@ class Stats extends Component {
   };
 
   fetchData = async () => {
-    let data = await track.all();
-    // eslint-disable-next-line array-callback-return
-    Object.entries(data).map(([key, value]) => {
-      if (key !== "updated") {
-        this.setState({
-          [key]: value.toLocaleString()
-        });
-      }
-    });
+    
+    let data = await fetch(fetchTotal);
+    data.json().then((res)=>{
+      Object.entries(res).forEach(([key, value]) => {
+        if (key !== "updated") {
+          this.setState({
+            [key]: value.toLocaleString()
+          });
+        }
+      });
+    })
   };
 
   async componentDidMount() {

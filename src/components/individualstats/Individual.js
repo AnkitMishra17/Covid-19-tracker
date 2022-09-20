@@ -18,10 +18,10 @@ import newcases from "./newcases.svg";
 import criticalcases from "./criticalcases.svg";
 import Chartloader from "../skeletons/chartskeleton.js";
 import "./individual.css";
+import { formatNumber } from "../../utils/formatting"; 
+import { fetchCountries } from "../../static/app.api";
 const Activegraph = lazy(() => import("./Charts/Activegraph.js"));
 const Piechart = lazy(() => import("./Charts/Piechart.js"));
-const { NovelCovid } = require("novelcovid");
-const track = new NovelCovid();
 
 const Relativediv = styled.div`
   display: flex;
@@ -46,7 +46,7 @@ const CustomGrid = styled(Grid)`
   padding: 20px;
   margin-top: 50px;
   margin-bottom: 50px;
-  background-color:rgba(244, 244, 244, 0.5);
+  background-color: rgba(244, 244, 244, 0.5);
   width: 80%;
   box-shadow: -10px -5px 20px 4px rgba(0, 0, 0, 0.1);
   z-index: -10;
@@ -69,7 +69,7 @@ const Typo = styled(Typography)`
 
 const CustomCard = styled(Card)`
   width: 750px;
-  background-color:rgba(244, 244, 244, 0.5);
+  background-color: rgba(244, 244, 244, 0.5);
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -80,7 +80,7 @@ class Countrystats extends Component {
     super();
     this.state = {
       data: [],
-      flag1: "",
+      emblem: "",
       piedata: {},
     };
   }
@@ -88,20 +88,17 @@ class Countrystats extends Component {
     this.stateupdate(this.props.match.params.id);
   }
   async stateupdate(countryname) {
-    let country = await track.countries(`${countryname}`);
+    let country = await fetch(
+      `${fetchCountries}/${countryname}`
+    );
     window.scrollTo(0, 0);
-    for (let key in country) {
-      if (key !== "countryInfo") {
-        if (country[key] !== null) {
-          country[key] = country[key].toLocaleString();
-        }
-      }
-    }
-    this.setState({
-      data: country,
-      flag1: country.countryInfo.flag,
+    country.json().then((res) => {
+      this.setState({
+        data: res,
+        emblem: res.countryInfo.flag,
+      });
+      this.updatechartstate();
     });
-    this.updatechartstate();
   }
   updatechartstate = () => {
     const { active, deaths, recovered } = this.state.data;
@@ -112,9 +109,9 @@ class Countrystats extends Component {
           {
             label: "Total Confirmed Cases",
             data: [
-              parseFloat(active.replace(/,/g, "")),
-              parseFloat(deaths.replace(/,/g, "")),
-              parseFloat(recovered.replace(/,/g, "")),
+              active,
+              deaths,
+              recovered,
             ],
             backgroundColor: [
               "rgba(247, 158, 2, 0.7)",
@@ -154,7 +151,7 @@ class Countrystats extends Component {
                         <div
                           className="country-flag"
                           style={{
-                            backgroundImage: `url(${this.state.flag1})`,
+                            backgroundImage: `url(${this.state.emblem})`,
                           }}
                         ></div>
                       </Typo>
@@ -167,7 +164,7 @@ class Countrystats extends Component {
                           <Avatar variant="rounded" src={casesimg}></Avatar>
                           <h5 className="info1">CONFIRMED CASES</h5>
                         </div>
-                        <h1 className="info3">{cases}</h1>
+                        <h1 className="info3">{formatNumber(cases)}</h1>
                       </StyledPaper>
                     </Grid>
                     <Grid item md={6} xs={12}>
@@ -176,7 +173,7 @@ class Countrystats extends Component {
                           <Avatar variant="rounded" src={deathsimg}></Avatar>
                           <h5 className="info1">TOTAL DEATHS</h5>
                         </div>
-                        <h1 className="info3">{deaths}</h1>
+                        <h1 className="info3">{formatNumber(deaths)}</h1>
                       </StyledPaper>
                     </Grid>
                   </Grid>
@@ -187,7 +184,7 @@ class Countrystats extends Component {
                           <Avatar variant="rounded" src={recoveredimg}></Avatar>
                           <h5 className="info1">TOTAL RECOVERIES</h5>
                         </div>
-                        <h1 className="info3">{recovered}</h1>
+                        <h1 className="info3">{formatNumber(recovered)}</h1>
                       </StyledPaper>
                     </Grid>
                     <Grid item md={6} xs={12}>
@@ -196,7 +193,7 @@ class Countrystats extends Component {
                           <Avatar variant="rounded" src={activeimg}></Avatar>
                           <h5 className="info1">ACTIVE CASES</h5>
                         </div>
-                        <h1 className="info3">{active}</h1>
+                        <h1 className="info3">{formatNumber(active)}</h1>
                       </StyledPaper>
                     </Grid>
                   </Grid>
@@ -226,7 +223,7 @@ class Countrystats extends Component {
                   <Avatar variant="rounded" src={newcases}></Avatar>
                   <h5 className="info1">NEW CASES</h5>
                 </div>
-                <h1 className="info3">+{todayCases}</h1>
+                <h1 className="info3">+{formatNumber(todayCases)}</h1>
               </StyledPaper>
             </Grid>
             <Grid item md={4} xs={6}>
@@ -235,7 +232,7 @@ class Countrystats extends Component {
                   <Avatar variant="rounded" src={newdeaths}></Avatar>
                   <h5 className="info1">NEW DEATHS</h5>
                 </div>
-                <h1 className="info3">{todayDeaths}</h1>
+                <h1 className="info3">{formatNumber(todayDeaths)}</h1>
               </StyledPaper>
             </Grid>
             <Grid item md={4} xs={6}>
@@ -244,7 +241,7 @@ class Countrystats extends Component {
                   <Avatar variant="rounded" src={criticalcases}></Avatar>
                   <h5 className="info1">CRITICIAL</h5>
                 </div>
-                <h1 className="info3">{critical}</h1>
+                <h1 className="info3">{formatNumber(critical)}</h1>
               </StyledPaper>
             </Grid>
             <Grid item md={4} xs={6}>
@@ -253,7 +250,7 @@ class Countrystats extends Component {
                   <Avatar variant="rounded" src={cpom}></Avatar>
                   <h5 className="info1">CASES/1 MIL</h5>
                 </div>
-                <h1 className="info3">{casesPerOneMillion}</h1>
+                <h1 className="info3">{formatNumber(casesPerOneMillion)}</h1>
               </StyledPaper>
             </Grid>
             <Grid item md={4} xs={6}>
@@ -262,7 +259,7 @@ class Countrystats extends Component {
                   <Avatar variant="rounded" src={dpom}></Avatar>
                   <h5 className="info1">DEATHS/1 MIL</h5>
                 </div>
-                <h1 className="info3">{deathsPerOneMillion}</h1>
+                <h1 className="info3">{formatNumber(deathsPerOneMillion)}</h1>
               </StyledPaper>
             </Grid>
           </CustomGrid>
@@ -281,7 +278,7 @@ class Countrystats extends Component {
           </Grid>
           <Grid item md={5} xs={12}>
             <Suspense fallback={<Chartloader />}>
-              <Activegraph country={this.state.data.country}/>
+              <Activegraph country={this.state.data.country} />
             </Suspense>
           </Grid>
         </Grid>

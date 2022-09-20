@@ -1,5 +1,5 @@
-.header{
-  margin: 200px 200px 0px 200px;
+.headerText{
+  margin: 200px 200px 0px 0px;
   font-weight: bold;
 }
 .para{
@@ -22,7 +22,6 @@
   padding: 8px 12px;
   word-wrap: none;
 }
-
 .heading{
   font-size: 17px;
   font-weight: bold;
@@ -30,7 +29,7 @@
   border: 2px solid #ececec;
 }
 @media (max-width: 768px) {
-  .header{
+  .headerText{
     margin: 20px 20px;
   }
     .para{

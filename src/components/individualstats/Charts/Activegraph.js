@@ -8,8 +8,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-const { NovelCovid } = require("novelcovid");
-const track = new NovelCovid();
+import { historicalCountry } from "../../../static/app.api";
 
 const Relativediv = styled.div`
   display: flex;
@@ -33,24 +32,32 @@ const Relativediv = styled.div`
 export default class Activegraph extends Component {
   state = {
     chartdata: {},
+    data: {},
     selected_value: "Choose option",
     chart_type: false,
+    fetchCount: 0
   };
   componentDidUpdate(props, prevstate) {
-    if (this.state.selected_value !== prevstate.selected_value) {
+    if (this.state.selected_value !== prevstate.selected_value && !prevstate.fetchCount) {
       let country = this.props.country;
       this.getchartdata(country);
     }
   }
   async getchartdata(country) {
-    let countrydata = await track.historical(null, country);
-    this.setchartdata(countrydata);
+    let countrydata = await fetch(`${historicalCountry}/${country}?lastdays=30`);
+    countrydata.json().then((data)=>{
+      this.setState({data})
+      this.setState((prevState)=>({
+        fetchCount: prevState.fetchCount+1
+      }))
+      this.setchartdata(this.state.data);
+    })
   }
   async setchartdata(countrydata) {
     let cases_data = [],
       deaths_data = [],
-      recovered_data = [];
-    let dates = [];
+      recovered_data = [],
+      dates = [];
     let data_timeline,
       data_timeline1,
       data_timeline2,
@@ -146,6 +153,12 @@ export default class Activegraph extends Component {
     this.setState({
       selected_value: e.target.value,
     });
+    setTimeout(()=>{
+      if(this.state.fetchCount){
+        this.setchartdata(this.state.data)
+      }
+    },0)
+    
   };
   render() {
     const handleChange = () => {
